@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZENX</title>
+  <meta name="description" content="ZENX Search" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -37,6 +40,7 @@
       z-index: 1;
       width: 90%;
       max-width: 1200px;
+      padding: 2rem;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -45,19 +49,20 @@
 
     .settings-btn {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 1rem;
+      right: 1rem;
       background: #ff4757;
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      z-index: 100;
+      z-index: 50;
+      transition: background-color 0.3s;
     }
 
     .settings-btn:hover {
@@ -65,13 +70,13 @@
     }
 
     .logo {
-      font-size: 48px;
+      font-size: 4rem;
       font-weight: 800;
-      background: linear-gradient(45deg, #ff9f43, #ee5253, #0abde3, #10ac84);
-      -webkit-background-clip: text;
+      margin-bottom: 2rem;
+      background-image: linear-gradient(45deg, #ff9f43, #ee5253, #0abde3, #10ac84);
       background-clip: text;
+      -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 20px;
       animation: pulse 2s infinite ease-in-out;
     }
 
@@ -82,45 +87,46 @@
 
     .search-container {
       position: relative;
-      margin: 20px 0;
+      width: 100%;
+      max-width: 30rem;
+      margin: 0 auto;
     }
 
-    #search-input {
+    .search-input {
       width: 100%;
-      max-width: 400px;
-      padding: 14px 50px 14px 20px;
-      font-size: 16px;
+      padding: 1rem 3rem 1rem 1.5rem;
+      font-size: 1rem;
       border: none;
-      border-radius: 30px;
+      border-radius: 2rem;
       background: rgba(255, 255, 255, 0.85);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       outline: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    #search-input:focus {
+    .search-input:focus {
       transform: scale(1.02);
       box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
     }
 
-    #search-btn {
+    .search-btn {
       position: absolute;
-      right: 10px;
+      right: 0.75rem;
       top: 50%;
       transform: translateY(-50%);
       background: #ff4757;
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s;
     }
 
-    #search-btn:hover {
+    .search-btn:hover {
       background: #e84118;
     }
 
@@ -129,49 +135,62 @@
       top: 100%;
       left: 0;
       right: 0;
-      max-width: 400px;
-      margin: 0 auto;
+      margin-top: 0.5rem;
       background: rgba(255, 255, 255, 0.95);
-      border-radius: 10px;
+      border-radius: 0.75rem;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      max-height: 200px;
+      max-height: 15rem;
       overflow-y: auto;
       z-index: 10;
       display: none;
+      animation: slideIn 0.2s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .suggestion-item {
-      padding: 10px 20px;
-      font-size: 14px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
       color: #333;
       cursor: pointer;
-      transition: background 0.2s ease;
+      transition: background 0.2s;
     }
 
-    .suggestion-item:hover {
-      background: #f0f0f0;
+    .suggestion-item:hover,
+    .suggestion-item.active {
+      background: rgba(240, 240, 240, 0.8);
     }
 
     .speed-dial {
-      margin-top: 20px;
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 100%;
     }
 
     .dial-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-      gap: 15px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     .dial-item {
       background: rgba(255, 255, 255, 0.9);
-      border-radius: 15px;
-      padding: 15px;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      height: 5.5rem;
       text-align: center;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .dial-item:hover {
@@ -180,74 +199,90 @@
     }
 
     .dial-item img {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 8px;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-bottom: 0.5rem;
+      object-fit: contain;
     }
 
     .dial-item p {
-      font-size: 12px;
+      font-size: 0.75rem;
       color: #333;
-      font-weight: 600;
+      font-weight: 500;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .dial-item .menu-btn {
+    .menu-btn {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      background: #999;
+      top: 0.25rem;
+      right: 0.25rem;
+      background: rgba(128, 128, 128, 0.7);
       border: none;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
+      width: 1.5rem;
+      height: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 1rem;
       color: white;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
     }
 
-    .dial-item .menu {
+    .dial-item:hover .menu-btn {
+      opacity: 1;
+    }
+
+    .menu {
       position: absolute;
-      top: 30px;
-      right: 5px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      display: none;
+      top: 2rem;
+      right: 0;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       z-index: 20;
+      display: none;
     }
 
-    .dial-item .menu-item {
-      padding: 8px 16px;
-      font-size: 12px;
+    .menu-item {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
       color: #333;
       cursor: pointer;
-      transition: background 0.2s ease;
+      white-space: nowrap;
     }
 
-    .dial-item .menu-item:hover {
+    .menu-item:hover {
       background: #f0f0f0;
+    }
+
+    .menu-item.delete {
+      color: #ff4757;
     }
 
     .add-btn {
       background: #1dd1a1;
       border: none;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 3rem;
+      height: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
       margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
     }
 
     .add-btn:hover {
       transform: scale(1.1);
+      background: #10ac84;
     }
 
     .modal {
@@ -258,421 +293,560 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
       align-items: center;
       justify-content: center;
-      z-index: 100;
     }
 
     .modal-content {
       background: white;
-      border-radius: 15px;
-      padding: 20px;
+      border-radius: 1rem;
+      padding: 1.5rem;
       width: 90%;
-      max-width: 400px;
-      text-align: center;
-      animation: slideIn 0.3s ease;
+      max-width: 25rem;
     }
 
-    .modal-content h2 {
-      margin-bottom: 20px;
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
       color: #333;
     }
 
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
+    .modal-description {
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
     }
 
-    .settings-option {
-      margin: 15px 0;
-      text-align: left;
+    .input-group {
+      margin-bottom: 1rem;
     }
 
-    .settings-option label {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 5px;
+    .input-group label {
       display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
     }
 
-    .modal-buttons {
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+
+    .modal-actions {
       display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
     }
 
-    .modal-buttons button {
-      padding: 10px 20px;
+    .btn {
+      padding: 0.5rem 1rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
       cursor: pointer;
-      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
     }
 
-    #save-site,
-    #save-settings {
+    .btn-primary {
+      background: #4361ee;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #3a56e4;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #ddd;
+    }
+
+    .btn-outline:hover {
+      background: #f5f5f5;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      padding: 0.75rem 1.25rem;
+      background: #333;
+      color: white;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-success {
       background: #1dd1a1;
-      color: white;
     }
 
-    #cancel-site,
-    #cancel-settings {
-      background: #ff6b6b;
-      color: white;
+    .toast-error {
+      background: #ff4757;
     }
 
-    @keyframes slideIn {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @media (max-width: 640px) {
+      .logo {
+        font-size: 3rem;
+      }
+      
+      .dial-grid {
+        grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+      }
+      
+      .dial-item {
+        height: 4.5rem;
+        padding: 0.5rem;
+      }
+      
+      .dial-item img {
+        width: 2rem;
+        height: 2rem;
+      }
     }
 
-    @media (max-width: 600px) {
-      .logo { font-size: 36px; }
-      .dial-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-      #search-input { max-width: 300px; }
-      .suggestions { max-width: 300px; }
+    @media (max-height: 700px) {
+      .container {
+        padding-top: 5rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Background Canvas -->
   <canvas id="bg-canvas"></canvas>
-  <button class="settings-btn" id="settings-btn">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-      <line x1="4" y1="6" x2="20" y2="6"></line>
-      <line x1="4" y1="12" x2="20" y2="12"></line>
-      <line x1="4" y1="18" x2="20" y2="18"></line>
+  
+  <!-- Settings Button -->
+  <button id="settings-btn" class="settings-btn" aria-label="Settings">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
     </svg>
   </button>
+  
+  <!-- Main Container -->
   <div class="container">
     <h1 class="logo">ZENX</h1>
+    
+    <!-- Search Box -->
     <div class="search-container">
-      <input type="text" id="search-input" placeholder="Search ZENX..." autocomplete="off">
-      <button id="search-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <input 
+        type="text" 
+        id="search-input" 
+        class="search-input" 
+        placeholder="Search ZENX..." 
+        autocomplete="off"
+        aria-label="Search"
+      >
+      <button id="search-btn" class="search-btn" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </button>
-      <div class="suggestions" id="suggestions"></div>
+      <div id="suggestions" class="suggestions"></div>
     </div>
+    
+    <!-- Speed Dial -->
     <div class="speed-dial">
-      <div class="dial-grid" id="dial-grid"></div>
-      <button class="add-btn" id="add-dial">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <div id="dial-grid" class="dial-grid"></div>
+      <button id="add-dial-btn" class="add-btn" aria-label="Add Site">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </button>
     </div>
   </div>
-  <div class="modal" id="add-modal">
+  
+  <!-- Add/Edit Site Modal -->
+  <div id="site-modal" class="modal">
     <div class="modal-content">
-      <h2 id="modal-title">Add Favorite Site</h2>
-      <input type="text" id="site-name" placeholder="Site Name (e.g., YouTube)">
-      <input type="text" id="site-url" placeholder="URL (e.g., youtube.com)">
-      <div class="modal-buttons">
-        <button id="save-site">Save</button>
-        <button id="cancel-site">Cancel</button>
+      <h2 id="site-modal-title" class="modal-title">Add Favorite Site</h2>
+      <p class="modal-description">Enter the details for your favorite site.</p>
+      <div class="input-group">
+        <label for="site-name">Site Name</label>
+        <input type="text" id="site-name" placeholder="e.g., YouTube">
+      </div>
+      <div class="input-group">
+        <label for="site-url">URL</label>
+        <input type="text" id="site-url" placeholder="e.g., youtube.com">
+      </div>
+      <div class="modal-actions">
+        <button id="cancel-site-btn" class="btn btn-outline">Cancel</button>
+        <button id="save-site-btn" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
-  <div class="modal" id="settings-modal">
+  
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal">
     <div class="modal-content">
-      <h2>Settings</h2>
-      <div class="settings-option">
-        <label for="theme">Theme:</label>
+      <h2 class="modal-title">Settings</h2>
+      <p class="modal-description">Customize your ZENX experience.</p>
+      <div class="input-group">
+        <label for="theme">Theme</label>
         <select id="theme">
           <option value="default">Default</option>
           <option value="dark">Dark</option>
           <option value="ocean">Ocean</option>
         </select>
       </div>
-      <div class="settings-option">
-        <label for="search-engine">Search Engine:</label>
+      <div class="input-group">
+        <label for="search-engine">Search Engine</label>
         <select id="search-engine">
           <option value="google">Google</option>
           <option value="bing">Bing</option>
           <option value="duckduckgo">DuckDuckGo</option>
         </select>
       </div>
-      <div class="modal-buttons">
-        <button id="save-settings">Save</button>
-        <button id="cancel-settings">Cancel</button>
+      <div class="modal-actions">
+        <button id="cancel-settings-btn" class="btn btn-outline">Cancel</button>
+        <button id="save-settings-btn" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
+  
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+  
+  <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  
   <script>
-    // Speed Dial
-    let speedDial = JSON.parse(localStorage.getItem('speedDial')) || [];
-    let settings = JSON.parse(localStorage.getItem('settings')) || {
-      theme: 'default',
-      searchEngine: 'google'
-    };
-
-    function renderSpeedDial() {
-      const grid = document.getElementById('dial-grid');
-      if (!grid) {
-        console.error('Dial grid element not found');
-        return;
-      }
-      grid.innerHTML = '';
-      speedDial.forEach((site, index) => {
-        const item = document.createElement('div');
-        item.className = 'dial-item';
-        item.innerHTML = `
-          <img src="${site.favicon || 'https://www.google.com/s2/favicons?domain=' + site.url}" alt="${site.name}">
-          <p>${site.name}</p>
-          <button class="menu-btn" title="Menu">⋮</button>
-          <div class="menu">
-            <div class="menu-item" data-action="edit">Edit</div>
-            <div class="menu-item" data-action="remove">Remove</div>
-          </div>
-        `;
-        const menuBtn = item.querySelector('.menu-btn');
-        const menu = item.querySelector('.menu');
-        menuBtn.onclick = (e) => {
-          e.stopPropagation();
-          document.querySelectorAll('.menu').forEach(m => m.style.display = 'none');
-          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        };
-        menu.querySelectorAll('.menu-item').forEach(option => {
-          option.onclick = (e) => {
-            e.stopPropagation();
-            menu.style.display = 'none';
-            if (option.dataset.action === 'edit') openEditModal(index);
-            else if (option.dataset.action === 'remove') deleteSite(index);
-          };
-        });
-        item.onclick = (e) => {
-          if (!e.target.classList.contains('menu-btn') && !e.target.classList.contains('menu-item')) {
-            openUrl(site.url, site.name);
-          }
-        };
-        grid.appendChild(item);
-      });
-    }
-
-    function openEditModal(index) {
-      const modal = document.getElementById('add-modal');
-      const title = document.getElementById('modal-title');
-      const nameInput = document.getElementById('site-name');
-      const urlInput = document.getElementById('site-url');
-      const saveBtn = document.getElementById('save-site');
-
-      if (!modal || !title || !nameInput || !urlInput || !saveBtn) {
-        console.error('Modal or input elements not found');
-        return;
-      }
-
-      title.textContent = 'Edit Favorite Site';
-      nameInput.value = speedDial[index].name;
-      urlInput.value = speedDial[index].url;
-      modal.style.display = 'flex';
-
-      saveBtn.onclick = () => {
-        const name = nameInput.value.trim();
-        let url = urlInput.value.trim();
-        if (name && url) {
-          url = url.startsWith('http') ? url : `https://${url}`;
-          speedDial[index] = {
-            name,
-            url,
-            favicon: `https://www.google.com/s2/favicons?domain=${url}`
-          };
-          localStorage.setItem('speedDial', JSON.stringify(speedDial));
-          renderSpeedDial();
-          modal.style.display = 'none';
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+      // State
+      let speedDial = JSON.parse(localStorage.getItem('speedDial')) || [];
+      let settings = JSON.parse(localStorage.getItem('settings')) || {
+        theme: 'default',
+        searchEngine: 'google'
       };
-    }
-
-    function deleteSite(index) {
-      if (confirm('Are you sure you want to delete this site?')) {
-        speedDial.splice(index, 1);
-        localStorage.setItem('speedDial', JSON.stringify(speedDial));
-        renderSpeedDial();
+      let editIndex = null;
+      let activeIndex = -1;
+      let suggestionCache = {};
+      
+      // Elements
+      const searchInput = document.getElementById('search-input');
+      const searchBtn = document.getElementById('search-btn');
+      const suggestionsEl = document.getElementById('suggestions');
+      const settingsBtn = document.getElementById('settings-btn');
+      const siteModal = document.getElementById('site-modal');
+      const siteModalTitle = document.getElementById('site-modal-title');
+      const siteNameInput = document.getElementById('site-name');
+      const siteUrlInput = document.getElementById('site-url');
+      const saveSiteBtn = document.getElementById('save-site-btn');
+      const cancelSiteBtn = document.getElementById('cancel-site-btn');
+      const addDialBtn = document.getElementById('add-dial-btn');
+      const dialGrid = document.getElementById('dial-grid');
+      const settingsModal = document.getElementById('settings-modal');
+      const themeSelect = document.getElementById('theme');
+      const searchEngineSelect = document.getElementById('search-engine');
+      const saveSettingsBtn = document.getElementById('save-settings-btn');
+      const cancelSettingsBtn = document.getElementById('cancel-settings-btn');
+      const toast = document.getElementById('toast');
+      
+      // Initialize
+      applyTheme();
+      renderSpeedDial();
+      
+      // Functions
+      function applyTheme() {
+        let backgroundStyle;
+        switch (settings.theme) {
+          case 'dark':
+            backgroundStyle = 'linear-gradient(135deg, #2c3e50, #34495e)';
+            break;
+          case 'ocean':
+            backgroundStyle = 'linear-gradient(135deg, #2ecc71, #3498db)';
+            break;
+          default:
+            backgroundStyle = 'linear-gradient(135deg, #ff6b6b, #4ecdc4)';
+        }
+        document.body.style.background = backgroundStyle;
       }
-    }
-
-    function openUrl(url, title) {
-      if (!url) {
-        console.error('No URL provided');
-        return;
+      
+      function showToast(message, type = '') {
+        toast.textContent = message;
+        toast.className = 'toast show';
+        if (type) toast.classList.add(`toast-${type}`);
+        
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
       }
-      if (!url.startsWith('http') && !url.startsWith('https')) {
-        const engine = settings.searchEngine;
-        const searchUrl = {
-          google: `https://www.google.com/search?q=${encodeURIComponent(url)}`,
-          bing: `https://www.bing.com/search?q=${encodeURIComponent(url)}`,
-          duckduckgo: `https://duckduckgo.com/?q=${encodeURIComponent(url)}`
-        }[engine];
-        url = searchUrl || `https://www.google.com/search?q=${encodeURIComponent(url)}`;
-      }
-      window.open(url, '_blank');
-    }
-
-    // Search Functionality
-    const searchInput = document.getElementById('search-input');
-    const suggestionsBox = document.getElementById('suggestions');
-
-    function performSearch(query) {
-      if (query) openUrl(query);
-    }
-
-    document.getElementById('search-btn').onclick = () => {
-      performSearch(searchInput.value);
-    };
-
-    searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        performSearch(searchInput.value);
-      }
-    });
-
-    // Real-time Suggestions using DuckDuckGo API with Proxy
-    async function fetchSuggestions(query) {
-      if (!query || query.length < 1) {
-        suggestionsBox.style.display = 'none';
-        return [];
-      }
-      try {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.duckduckgo.com/ac/?q=${encodeURIComponent(query)}&format=json`)}`;
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = JSON.parse((await response.json()).contents);
-        console.log('Raw API Response:', data); // Log the full response
-        return data && Array.isArray(data.data) ? data.data : [];
-      } catch (error) {
-        console.error('Suggestion fetch error:', error);
-        return []; // Return empty to avoid crashing
-      }
-    }
-
-    searchInput.addEventListener('input', async () => {
-      const query = searchInput.value.trim();
-      suggestionsBox.innerHTML = '';
-
-      if (query.length === 0) {
-        suggestionsBox.style.display = 'none';
-        return;
-      }
-
-      const suggestions = await fetchSuggestions(query);
-      console.log('Processed Suggestions:', suggestions); // Log what we’re working with
-      if (suggestions.length > 0) {
-        suggestions.forEach(suggestion => {
-          const suggestionItem = document.createElement('div');
-          suggestionItem.className = 'suggestion-item';
-          suggestionItem.textContent = suggestion;
-          suggestionItem.onclick = () => {
-            searchInput.value = suggestion;
-            suggestionsBox.style.display = 'none';
-            performSearch(suggestion);
-          };
-          suggestionsBox.appendChild(suggestionItem);
-        });
-        suggestionsBox.style.display = 'block';
-      } else {
-        suggestionsBox.style.display = 'none';
-      }
-    });
-
-    // Close suggestions when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-        suggestionsBox.style.display = 'none';
-      }
-      if (!e.target.classList.contains('menu-btn') && !e.target.classList.contains('menu-item')) {
-        document.querySelectorAll('.menu').forEach(m => m.style.display = 'none');
-      }
-    });
-
-    // Modal for Adding Sites
-    const modal = document.getElementById('add-modal');
-    const addBtn = document.getElementById('add-dial');
-    const saveBtn = document.getElementById('save-site');
-    const cancelBtn = document.getElementById('cancel-site');
-
-    if (addBtn && saveBtn && cancelBtn) {
-      addBtn.onclick = () => {
-        const title = document.getElementById('modal-title');
-        const nameInput = document.getElementById('site-name');
-        const urlInput = document.getElementById('site-url');
-        if (title && nameInput && urlInput) {
-          title.textContent = 'Add Favorite Site';
-          nameInput.value = '';
-          urlInput.value = '';
-          modal.style.display = 'flex';
-          saveBtn.onclick = () => {
-            const name = nameInput.value.trim();
-            let url = urlInput.value.trim();
-            if (name && url) {
-              url = url.startsWith('http') ? url : `https://${url}`;
-              speedDial.push({
-                name,
-                url,
-                favicon: `https://www.google.com/s2/favicons?domain=${url}`
-              });
+      
+      function renderSpeedDial() {
+        dialGrid.innerHTML = '';
+        
+        speedDial.forEach((site, index) => {
+          const item = document.createElement('div');
+          item.className = 'dial-item';
+          item.setAttribute('data-index', index);
+          
+          item.innerHTML = `
+            <img src="${site.favicon}" alt="${site.name}" onerror="this.src='https://placehold.co/40x40?text=${site.name.charAt(0)}'">
+            <p title="${site.name}">${site.name}</p>
+            <button class="menu-btn" aria-label="Options">⋮</button>
+            <div class="menu">
+              <div class="menu-item edit">Edit</div>
+              <div class="menu-item delete">Remove</div>
+            </div>
+          `;
+          
+          // Open site on click
+          item.addEventListener('click', (e) => {
+            if (!e.target.closest('.menu-btn') && !e.target.closest('.menu')) {
+              openUrl(site.url);
+            }
+          });
+          
+          // Toggle menu
+          const menuBtn = item.querySelector('.menu-btn');
+          const menu = item.querySelector('.menu');
+          
+          menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Close all other menus
+            document.querySelectorAll('.menu').forEach(m => {
+              if (m !== menu) m.style.display = 'none';
+            });
+            
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+          });
+          
+          // Menu actions
+          item.querySelector('.menu-item.edit').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEditModal(index);
+          });
+          
+          item.querySelector('.menu-item.delete').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (confirm('Are you sure you want to delete this site?')) {
+              speedDial.splice(index, 1);
               localStorage.setItem('speedDial', JSON.stringify(speedDial));
               renderSpeedDial();
-              modal.style.display = 'none';
+              showToast('Site removed successfully!', 'success');
             }
-          };
+          });
+          
+          dialGrid.appendChild(item);
+        });
+      }
+      
+      function openAddModal() {
+        editIndex = null;
+        siteModalTitle.textContent = 'Add Favorite Site';
+        siteNameInput.value = '';
+        siteUrlInput.value = '';
+        siteModal.style.display = 'flex';
+      }
+      
+      function openEditModal(index) {
+        editIndex = index;
+        siteModalTitle.textContent = 'Edit Favorite Site';
+        siteNameInput.value = speedDial[index].name;
+        siteUrlInput.value = speedDial[index].url;
+        siteModal.style.display = 'flex';
+      }
+      
+      function saveSite() {
+        const name = siteNameInput.value.trim();
+        let url = siteUrlInput.value.trim();
+        
+        if (!name || !url) {
+          showToast('Please enter both a name and URL.', 'error');
+          return;
         }
-      };
-
-      cancelBtn.onclick = () => {
-        modal.style.display = 'none';
-      };
-    } else {
-      console.error('Modal or button elements not found');
-    }
-
-    // Settings Modal
-    const settingsModal = document.getElementById('settings-modal');
-    const settingsBtn = document.getElementById('settings-btn');
-    const saveSettingsBtn = document.getElementById('save-settings');
-    const cancelSettingsBtn = document.getElementById('cancel-settings');
-
-    if (settingsBtn && saveSettingsBtn && cancelSettingsBtn) {
-      settingsBtn.onclick = () => {
-        document.getElementById('theme').value = settings.theme;
-        document.getElementById('search-engine').value = settings.searchEngine;
-        settingsModal.style.display = 'flex';
-      };
-
-      saveSettingsBtn.onclick = () => {
-        settings = {
-          theme: document.getElementById('theme').value,
-          searchEngine: document.getElementById('search-engine').value
+        
+        // Format URL if needed
+        if (!url.startsWith('http')) {
+          url = `https://${url}`;
+        }
+        
+        const newSite = {
+          name,
+          url,
+          favicon: `https://www.google.com/s2/favicons?domain=${url}`
         };
+        
+        if (editIndex !== null) {
+          // Update existing site
+          speedDial[editIndex] = newSite;
+          showToast('Site updated successfully!', 'success');
+        } else {
+          // Add new site
+          speedDial.push(newSite);
+          showToast('Site added successfully!', 'success');
+        }
+        
+        localStorage.setItem('speedDial', JSON.stringify(speedDial));
+        renderSpeedDial();
+        siteModal.style.display = 'none';
+      }
+      
+      function openUrl(url) {
+        if (!url) return;
+        
+        if (
+          !url.startsWith('http') &&
+          !url.includes(' ') &&
+          url.includes('.')
+        ) {
+          // Looks like a domain
+          window.open(`https://${url}`, '_blank');
+        } else if (
+          !url.startsWith('http') &&
+          !url.includes(' ') &&
+          !url.includes('.')
+        ) {
+          // Single word, treat as a domain
+          window.open(`https://${url}`, '_blank');
+        } else {
+          // Use search engine
+          const searchUrl = {
+            google: `https://www.google.com/search?q=${encodeURIComponent(url)}`,
+            bing: `https://www.bing.com/search?q=${encodeURIComponent(url)}`,
+            duckduckgo: `https://duckduckgo.com/?q=${encodeURIComponent(url)}`
+          }[settings.searchEngine] || `https://www.google.com/search?q=${encodeURIComponent(url)}`;
+          
+          window.open(searchUrl, '_blank');
+        }
+      }
+      
+      // Debounce function
+      function debounce(func, delay) {
+        let timeout;
+        return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+      }
+      
+      // Search suggestions
+      async function fetchSuggestions(query) {
+        if (!query || query.length < 1) {
+          suggestionsEl.style.display = 'none';
+          return [];
+        }
+        
+        // Check cache first
+        if (suggestionCache[query]) {
+          return suggestionCache[query];
+        }
+        
+        try {
+          const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(
+            `https://api.duckduckgo.com/ac/?q=${encodeURIComponent(query)}&format=json`
+          )}`;
+          
+          const response = await fetch(proxyUrl);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          const data = JSON.parse((await response.json()).contents);
+          let results = [];
+          
+          if (data && Array.isArray(data)) {
+            results = data.map(item => item.phrase);
+          } else if (data && Array.isArray(data.data)) {
+            results = data.data.map(item => item.phrase);
+          }
+          
+          // Cache the results
+          suggestionCache[query] = results;
+          return results;
+        } catch (error) {
+          console.error('Error fetching suggestions:', error);
+          return [];
+        }
+      }
+      
+      const updateSuggestions = debounce(async (query) => {
+        if (!query.trim()) {
+          suggestionsEl.style.display = 'none';
+          return;
+        }
+        
+        const suggestions = await fetchSuggestions(query.trim());
+        suggestionsEl.innerHTML = '';
+        
+        if (suggestions.length > 0) {
+          suggestions.forEach((suggestion, index) => {
+            const item = document.createElement('div');
+            item.className = 'suggestion-item';
+            item.textContent = suggestion;
+            item.setAttribute('data-index', index);
+            
+            item.addEventListener('click', () => {
+              searchInput.value = suggestion;
+              suggestionsEl.style.display = 'none';
+              performSearch(suggestion);
+            });
+            
+            suggestionsEl.appendChild(item);
+          });
+          
+          activeIndex = -1;
+          suggestionsEl.style.display = 'block';
+        } else {
+          suggestionsEl.style.display = 'none';
+        }
+      }, 300);
+      
+      function performSearch(query = searchInput.value) {
+        if (!query.trim()) return;
+        
+        openUrl(query);
+        searchInput.value = '';
+        suggestionsEl.style.display = 'none';
+      }
+      
+      // Settings
+      function saveSettings() {
+        settings = {
+          theme: themeSelect.value,
+          searchEngine: searchEngineSelect.value
+        };
+        
         localStorage.setItem('settings', JSON.stringify(settings));
-        document.body.style.background = settings.theme === 'dark' ? 'linear-gradient(135deg, #2c3e50, #34495e)' :
-          settings.theme === 'ocean' ? 'linear-gradient(135deg, #2ecc71, #3498db)' : 'linear-gradient(135deg, #ff6b6b, #4ecdc4)';
+        applyTheme();
+        showToast('Settings saved!', 'success');
         settingsModal.style.display = 'none';
-      };
-
-      cancelSettingsBtn.onclick = () => {
-        settingsModal.style.display = 'none';
-      };
-    } else {
-      console.error('Settings modal or button elements not found');
-    }
-
-    // Background Animation
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    if (canvas && ctx) {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      const particleCount = 100;
-
+      }
+      
+      // Background animation
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      function setupCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      
+      setupCanvas();
+      
       class Particle {
         constructor() {
           this.x = Math.random() * canvas.width;
@@ -681,12 +855,15 @@
           this.speedX = Math.random() * 0.5 - 0.25;
           this.speedY = Math.random() * 0.5 - 0.25;
         }
+        
         update() {
           this.x += this.speedX;
           this.y += this.speedY;
+          
           if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
           if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
         }
+        
         draw() {
           ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
           ctx.beginPath();
@@ -694,35 +871,141 @@
           ctx.fill();
         }
       }
-
+      
+      const particles = [];
+      const particleCount = 100;
+      
       function initParticles() {
         for (let i = 0; i < particleCount; i++) {
           particles.push(new Particle());
         }
       }
-
+      
       function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((particle) => {
+        
+        particles.forEach(particle => {
           particle.update();
           particle.draw();
         });
+        
         requestAnimationFrame(animateParticles);
       }
-
+      
       initParticles();
       animateParticles();
-
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+      
+      // Event Listeners
+      searchInput.addEventListener('input', () => {
+        updateSuggestions(searchInput.value);
       });
-    } else {
-      console.error('Canvas or context not available');
-    }
-
-    // Initialize
-    renderSpeedDial();
+      
+      searchInput.addEventListener('focus', () => {
+        if (searchInput.value.trim()) {
+          updateSuggestions(searchInput.value);
+        }
+      });
+      
+      searchInput.addEventListener('keydown', (e) => {
+        const suggestions = suggestionsEl.querySelectorAll('.suggestion-item');
+        
+        if (suggestionsEl.style.display === 'block' && suggestions.length > 0) {
+          // Down arrow
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            activeIndex = (activeIndex < suggestions.length - 1) ? activeIndex + 1 : 0;
+            updateActiveItem();
+          } 
+          // Up arrow
+          else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            activeIndex = (activeIndex > 0) ? activeIndex - 1 : suggestions.length - 1;
+            updateActiveItem();
+          } 
+          // Enter on active suggestion
+          else if (e.key === 'Enter' && activeIndex >= 0) {
+            e.preventDefault();
+            const activeSuggestion = suggestions[activeIndex].textContent;
+            searchInput.value = activeSuggestion;
+            suggestionsEl.style.display = 'none';
+            performSearch(activeSuggestion);
+          }
+          // Escape key
+          else if (e.key === 'Escape') {
+            suggestionsEl.style.display = 'none';
+          }
+        } 
+        // Regular Enter
+        else if (e.key === 'Enter') {
+          performSearch();
+        }
+      });
+      
+      function updateActiveItem() {
+        const items = suggestionsEl.querySelectorAll('.suggestion-item');
+        items.forEach((item, index) => {
+          if (index === activeIndex) {
+            item.classList.add('active');
+            item.scrollIntoView({ block: 'nearest' });
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      }
+      
+      searchBtn.addEventListener('click', () => {
+        performSearch();
+      });
+      
+      // Close suggestions when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !suggestionsEl.contains(e.target)) {
+          suggestionsEl.style.display = 'none';
+        }
+        
+        // Close menus when clicking outside
+        if (!e.target.classList.contains('menu-btn') && !e.target.closest('.menu')) {
+          document.querySelectorAll('.menu').forEach(menu => {
+            menu.style.display = 'none';
+          });
+        }
+      });
+      
+      // Speed Dial Modal
+      addDialBtn.addEventListener('click', openAddModal);
+      saveSiteBtn.addEventListener('click', saveSite);
+      cancelSiteBtn.addEventListener('click', () => {
+        siteModal.style.display = 'none';
+      });
+      
+      // Settings Modal
+      settingsBtn.addEventListener('click', () => {
+        themeSelect.value = settings.theme;
+        searchEngineSelect.value = settings.searchEngine;
+        settingsModal.style.display = 'flex';
+      });
+      
+      saveSettingsBtn.addEventListener('click', saveSettings);
+      
+      cancelSettingsBtn.addEventListener('click', () => {
+        settingsModal.style.display = 'none';
+      });
+      
+      // Close modals when clicking outside
+      window.addEventListener('click', (e) => {
+        if (e.target === siteModal) {
+          siteModal.style.display = 'none';
+        }
+        if (e.target === settingsModal) {
+          settingsModal.style.display = 'none';
+        }
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        setupCanvas();
+      });
+    });
   </script>
 </body>
 </html>
